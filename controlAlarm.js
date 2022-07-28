@@ -15,7 +15,13 @@ async function main(){
 		const client=new smarthomeAPI.Client();
 		const options={host:addr};
 		console.log("Trying to Open '"+addr+"'");
-		const device=await client.getDevice(options);
+		let device=null;
+		try{
+			device=await client.getDevice(options);
+		}catch(e){
+			console.log("can't connect to host ('"+addr+"') please check you Connection!")
+			return(1);
+		}
 		console.log("Finish!");
 		let turnOn=true;
 		if(args[0]=="1"){turnOn=true}
